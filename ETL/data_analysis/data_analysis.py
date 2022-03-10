@@ -1,14 +1,44 @@
 import pandas as pd
+from pandas import ExcelWriter
+
 import numpy as np
 #import matplotlib.pyplot as plt
 import datetime
 from urllib.parse import urlparse
 import hashlib
 # librerias propias
+# libreria para leer desde main.py
+import ETL.data_analysis.utils.delword as dlw
+import ETL.data_analysis.utils.top_word as tw
+
+"""
+#Para trabajar en local
 import utils.delword as dlw
 import utils.top_word as tw
-# Leer la data
-today = datetime.date.today().strftime('%d-%m-%y')
+ """
+
+
+def save_data(df_data,today):
+    df_data.to_csv(f'data/{today}/data_transform.csv', sep=',')
+    writer = ExcelWriter(f'data/{today}/data_transform.xlsx')
+    df_data.to_excel(writer, 'Hoja de datos', index=False)
+    writer.save()
+
+
+def top_words_c(df_data):
+    words_contents = list(df_data.apply(
+        lambda row: dlw.delword(row['contents']), axis=1))
+    token_contents = []
+    top_words_1_contents = []
+    top_words_2_contents = []
+    top_words_3_contents = []
+    for i in words_contents:
+        token_contents.append(len(i))
+        top_words = tw.top_word(i)[:3]
+        top_words_1_contents.append(top_words[0])
+        top_words_2_contents.append(top_words[1])
+        top_words_3_contents.append(top_words[2])
+    return token_contents, top_words_1_contents, top_words_2_contents, top_words_3_contents
 
 
 def data_wrangling(df_data):
@@ -33,40 +63,34 @@ def data_wrangling(df_data):
     leng_contents = df_data.apply(lambda row: len(row['contents']), axis=1)
     df_data['leng title'] = leng_title
     df_data['leng contents'] = leng_contents
-    # token o palabras mas relevantes por titulo
+    # token o palabras mas relevantes por titulo (el token es la cantidad de palabras relevantes)
     token_title = df_data.apply(lambda row: len(
         dlw.delword(row['title'])), axis=1)
     df_data['token title'] = token_title
 
     # token o palabras mas relevantes para el contenido y palabras relebantes
-    words_contents = list(df_data.apply(
-        lambda row: dlw.delword(row['contents']), axis=1))
-    token_contents = []
-    top_words_1_contents = []
-    top_words_2_contents = []
-    top_words_3_contents = []
-    for i in words_contents:
-        token_contents.append(len(i))
-        top_words =tw.top_word(i)[:3]
-        top_words_1_contents.append(top_words[0])
-        top_words_2_contents.append(top_words[1])
-        top_words_3_contents.append(top_words[2])
+    token_contents, top_words_1_contents, top_words_2_contents, top_words_3_contents = top_words_c(
+        df_data)
     df_data['token contents'] = token_contents
     df_data['top 1 words contents'] = top_words_1_contents
     df_data['top 2 words contents'] = top_words_2_contents
     df_data['top 3 words contents'] = top_words_3_contents
 
     # devolvemos la data
-    print(df_data)
+    return df_data
 
 
-def data(today):
-    direccion = f'.\\data\\{today}.csv'
+def read_data(today):
+    direccion = f'.\\data\\{today}\\data_extract.csv'
     df_data = pd.read_csv(direccion)
     return df_data
 
 
-if __name__ == '__main__':
+def transform_data(today):
+    # Leer la data
+    df_data = read_data(today)
+    df_data_mod = data_wrangling(df_data)
+    save_data(df_data_mod,today)
+    # print(df_data_mod)
 
-    df_data = data(today)
-    data_wrangling(df_data)
+# transform_data()

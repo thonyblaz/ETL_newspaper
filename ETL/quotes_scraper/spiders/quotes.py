@@ -18,7 +18,7 @@ class QuotesSpider(scrapy.Spider):
         'https://lapatria.bo/'
     ]
     custom_settings = {
-        'FEED_URI': f'data/{today}.csv',
+        'FEED_URI': f'data/{today}/data_extract.csv',
         'FEED_FORMAT': 'csv',
         'ENCODING': 'UTF8',
     }
