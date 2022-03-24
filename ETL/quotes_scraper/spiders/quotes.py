@@ -5,9 +5,9 @@ from scrapy.crawler import CrawlerProcess
 import datetime
 
 # Xpaths
-XPATH_LINK_TO_ARTICLE = '//h3[@class="entry-title td-module-title"]/a/@href'
-XPATH_TITLE = '//h1[@class="entry-title"]/text()'
-XPATH_BODY = '//div/p/text()'
+XPATH_LINK_TO_ARTICLE = '//div[@id="content"]//a/@href'
+XPATH_TITLE = '//h1[@class="entry-title h1"]/text()'
+XPATH_BODY = '//div[@class="entry-content herald-entry-content"]/p/text()'
 
 today = datetime.date.today().strftime('%d-%m-%y')
 
@@ -27,7 +27,7 @@ class QuotesSpider(scrapy.Spider):
         title = response.xpath(XPATH_TITLE).get()
         body = response.xpath(XPATH_BODY).getall()
         # modificaciones
-        title = title.replace(',', '')
+        #title = title.replace(',', '')
 
         paragraph = ""
         for b in body:
@@ -52,6 +52,7 @@ class QuotesSpider(scrapy.Spider):
         links = response.xpath(XPATH_LINK_TO_ARTICLE).getall()
         for link in links:
             if link:
+                print(link)
                 yield response.follow(link, callback=self.parse_body, cb_kwargs={'link': link})
 
 
