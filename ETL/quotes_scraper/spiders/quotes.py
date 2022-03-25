@@ -15,7 +15,13 @@ today = datetime.date.today().strftime('%d-%m-%y')
 class QuotesSpider(scrapy.Spider):
     name = 'quotes'
     start_urls = [
-        'https://lapatria.bo/'
+        'https://lapatria.bo/',
+        'https://lapatria.bo/oruro/',
+        'https://lapatria.bo/bolivia/'
+        'https://lapatria.bo/politica/'
+        'https://lapatria.bo/estilo-de-vida/',
+        'https://lapatria.bo/internacional/',
+        'https://lapatria.bo/policial/'
     ]
     custom_settings = {
         'FEED_URI': f'data/{today}/data_extract.csv',
