@@ -1,7 +1,8 @@
 import scrapy
 from scrapy.spiders import SitemapSpider
 from scrapy.crawler import CrawlerProcess
-
+#librerias de python
+import re
 import datetime
 # my lybraries
 import ETL.quotes_scraper.spiders.tools.delete_args as td #para que el scraper funciones desde main.py
@@ -48,10 +49,14 @@ class QuotesSpider(scrapy.Spider):
             # traer link del anterior parse
             if kwargs:
                 link = kwargs['link']
+            #la fecha mediante expresiones regulares
+            patron = re.compile(r'\d\d\d\d/\d\d/\d\d')
+            date = patron.findall(link)
             yield{
                 'title': title,
                 'contents': paragraph,
-                'url': link
+                'url': link,
+                'date':date
             }
 
     def parse(self, response):

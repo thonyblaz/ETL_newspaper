@@ -1,4 +1,4 @@
-palabras_comunes = ['de', 'del', 'su', 'se', 'es', 'ese', 'esa','para', 'la', 'el', 'le', 'ha','han', 'a', 'e', 'i', 'o', 'u', 'las',  'les',
+palabras_comunes = ['de', 'del', 'su', 'se', 'es', 'ese', 'esa','esas','para', 'la', 'el', 'le', 'ha','han', 'a', 'e', 'i', 'o', 'u', 'las',  'les',
                     'los', 'sus', 'ser', 'y', 'que', 'en', 'un', 'una', 'por', 'al', 'lo', 'hay', 'ahi', 'sin', 'tal', 'vez',
                     'con', 'si', 'no', 'ni','son','r', 'este', 'esta', 'estos', 'tras', 'como', 'ya', 'toda', 'estan', 'entre', 'ademas', 'además', 'menos',
                     'también', 'tambien', 'aplica', 'más', 'según', 'está', 'nos', 'me', 'parte', 'partes', 'otros', 'otro', 'ante', 'fue', 

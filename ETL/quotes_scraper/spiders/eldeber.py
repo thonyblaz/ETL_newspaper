@@ -3,6 +3,7 @@ from scrapy.spiders import SitemapSpider
 from scrapy.crawler import CrawlerProcess
 
 import datetime
+import re
 # my lybraries
 # para que el scraper funciones desde main.py
 import ETL.quotes_scraper.spiders.tools.delete_args as td
@@ -21,7 +22,13 @@ today = datetime.date.today().strftime('%d-%m-%y')
 class QuotesSpider(scrapy.Spider):
     name = 'eldeber'
     start_urls = [
-        'https://eldeber.com.bo/'
+        'https://eldeber.com.bo/',
+        'https://eldeber.com.bo/santa-cruz',
+        'https://eldeber.com.bo/pais',
+        'https://eldeber.com.bo/economia',
+        'https://eldeber.com.bo/opinion',
+        'https://eldeber.com.bo/mundo',
+        'https://eldeber.com.bo/sociales'
     ]
     custom_settings = {
         'FEED_URI': f'data/{today}/data_extracted.csv',
@@ -34,7 +41,7 @@ class QuotesSpider(scrapy.Spider):
         resume = response.xpath(XPATH_RESUME).get()
         body_1 = response.xpath(XPATH_BODY_1).getall()
         body_2 = response.xpath(XPATH_BODY_2).getall()
-
+        date = response.xpath(XPATH_DATE).get()
         if resume:
             # modificaciones
             if isinstance(title, str) == True:
@@ -61,10 +68,16 @@ class QuotesSpider(scrapy.Spider):
             # traer link del anterior parse
             if kwargs:
                 link = kwargs['link']
+            # para modificar la fecha mediante expresiones regulares
+            patron = re.compile(r' \d\d:\d\d  ')
+            patron = patron.findall(date)
+            date = date.replace(patron[0], '')
+
             yield{
                 'title': title,
                 'contents': paragraph,
-                'url': link
+                'url': link,
+                'date': date
             }
 
     def parse(self, response):
