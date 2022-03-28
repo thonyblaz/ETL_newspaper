@@ -22,7 +22,7 @@ class QuotesSpider(scrapy.Spider):
         'https://eldeber.com.bo/'
     ]
     custom_settings = {
-        'FEED_URI': f'data/{today}/el_deber_data_extract.csv',
+        'FEED_URI': f'data/{today}/data_extracted/newspaper_el_deber.csv',
         'FEED_FORMAT': 'csv',
         'ENCODING': 'UTF8',
     }

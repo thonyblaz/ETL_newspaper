@@ -81,7 +81,7 @@ def data_wrangling(df_data):
 
 
 def read_data(today):
-    direccion = f'.\\data\\{today}\\data_extract.csv'
+    direccion = f'.\\data\\{today}\\data_extracted\\newspaper_la_patria.csv'
     df_data = pd.read_csv(direccion)
     return df_data
 

@@ -12,7 +12,7 @@ class ReplaceW:
         self.contents = self.contents.replace("-", '')
         self.contents = self.contents.replace("\n", '')
         self.contents = self.contents.replace('\\', '')
-        self.contents = self.contents.replace('  ', '')
+        self.contents = self.contents.replace('  ', ' ')
         self.contents = self.contents.replace('[', '')
         self.contents = self.contents.replace(']', '')
         self.contents = self.contents.replace('(', '')
@@ -20,4 +20,5 @@ class ReplaceW:
         self.contents = self.contents.replace('{', '')
         self.contents = self.contents.replace('}', '')
         self.contents = self.contents.replace('VEA EL VIDEO', '')
+        self.contents = self.contents.replace('VEA LA ENTREVISTA', '')
         return self.contents
