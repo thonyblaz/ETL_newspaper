@@ -5,14 +5,19 @@ from scrapy.crawler import CrawlerProcess
 import datetime
 import os
 # mis librerias
-import ETL.quotes_scraper.spiders.quotes as scraper
+#scrapers
+import ETL.quotes_scraper.spiders.quotes as scraper1
+import ETL.quotes_scraper.spiders.eldeber as scraper2
+#data analist
 import ETL.data_analysis.data_analysis as tr
 
 
 def extract():
     process = CrawlerProcess()
-    process.crawl(scraper.QuotesSpider)
+    process.crawl(scraper1.QuotesSpider)
     process.start()
+    #process.crawl(scraper2.QuotesSpider)
+    #process.start()
 
 
 def transform(today):

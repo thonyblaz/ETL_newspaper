@@ -1,8 +1,8 @@
-palabras_comunes = ['de', 'del', 'su', 'se', 'es', 'ese', 'para', 'la', 'el', 'le', 'ha', 'a', 'e', 'i', 'o', 'u', 'las', 'al', 'les',
+palabras_comunes = ['de', 'del', 'su', 'se', 'es', 'ese', 'para', 'la', 'el', 'le', 'ha', 'a', 'e', 'i', 'o', 'u', 'las',  'les',
                     'los', 'sus', 'ser', 'y', 'que', 'en', 'un', 'una', 'por', 'al', 'lo', 'hay', 'ahi', 'sin', 'tal', 'vez',
                     'con', 'si', 'no', 'ni', 'este', 'esta', 'estos', 'tras', 'como', 'ya', 'toda', 'estan', 'entre', 'ademas', 'además', 'menos',
                     'también', 'tambien', 'aplica', 'más', 'según', 'está', 'nos', 'me', 'parte', 'partes', 'otros', 'otro', 'ante', 'fue', 
-                    'pero', 'va', 'casos', 'uno','dos','tres','cuarto','quinto','the']
+                    'pero', 'va', 'casos', 'uno','dos','tres','cuarto','quinto','cual','the']
 
 
 def delword(p):

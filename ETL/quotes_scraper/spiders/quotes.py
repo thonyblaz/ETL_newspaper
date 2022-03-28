@@ -34,25 +34,25 @@ class QuotesSpider(scrapy.Spider):
     def parse_body(self, response, **kwargs):
         title = response.xpath(XPATH_TITLE).get()
         body = response.xpath(XPATH_BODY).getall()
-        # modificaciones
-        if isinstance(title, str)==True:
-            title = td.ReplaceW(title).word_modify()
-        #modificamos el contenido
-        paragraph = ""
-        for b in body:
-            if isinstance(b, str) == True:
-                p = td.ReplaceW(b).word_modify()
-                paragraph = paragraph +" "+ p
+        if body:
 
-
-        # traer link del anterior parse
-        if kwargs:
-            link = kwargs['link']
-        yield{
-            'title': title,
-            'contents': paragraph,
-            'url': link
-        }
+            # modificaciones
+            if isinstance(title, str)==True:
+                title = td.ReplaceW(title).word_modify()
+            #modificamos el contenido
+            paragraph = ""
+            for b in body:
+                if isinstance(b, str) == True:
+                    p = td.ReplaceW(b).word_modify()
+                    paragraph = paragraph +" "+ p
+            # traer link del anterior parse
+            if kwargs:
+                link = kwargs['link']
+            yield{
+                'title': title,
+                'contents': paragraph,
+                'url': link
+            }
 
     def parse(self, response):
         #print('*'*500)
