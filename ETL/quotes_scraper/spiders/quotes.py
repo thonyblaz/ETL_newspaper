@@ -26,7 +26,7 @@ class QuotesSpider(scrapy.Spider):
         'https://lapatria.bo/policial/'
     ]
     custom_settings = {
-        'FEED_URI': f'data/{today}/data_extracted/newspaper_la_patria.csv',
+        'FEED_URI': f'data/{today}/data_extracted.csv',
         'FEED_FORMAT': 'csv',
         'ENCODING': 'UTF8',
     }

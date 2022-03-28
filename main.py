@@ -30,6 +30,7 @@ def extract():
     d.addBoth(lambda _: reactor.stop())
 
     reactor.run()
+    print('EXTRACCION COMPLETADA')
     #Codigo para un solo spyder
     """ process = CrawlerProcess()
     process.crawl(scraper1.QuotesSpider)
@@ -37,6 +38,8 @@ def extract():
 
 def transform(today):
     tr.transform_data(today)
+    print('TRANSFORMACION COMPLETADA')
+    
 
 
 def new_folder(today):

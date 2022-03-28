@@ -27,7 +27,7 @@ def save_data(df_data,today):
 
 def top_words_c(df_data):
     words_contents = list(df_data.apply(
-        lambda row: dlw.delword(row['contents']), axis=1))
+        lambda row: dlw.delword(row['contents']), axis=1)) # se convierte en una lista
     token_contents = []
     top_words_1_contents = []
     top_words_2_contents = []
@@ -42,6 +42,12 @@ def top_words_c(df_data):
 
 
 def data_wrangling(df_data):
+    #eliminar la fila con titleque no sean el encabezado
+    df_idx=df_data[df_data["title"]=="title"].index
+    df_data=df_data.drop(df_idx)
+    #eliminar columna de numeros
+    """ if df_data['']:
+        df_data.drop([''], axis=1) """
     # separar el host de la url
     df_data['host'] = df_data['url'].apply(lambda url: urlparse(url).netloc)
     # eliminiar filas con datos faltantes
@@ -81,7 +87,7 @@ def data_wrangling(df_data):
 
 
 def read_data(today):
-    direccion = f'.\\data\\{today}\\data_extracted\\newspaper_la_patria.csv'
+    direccion = f'.\\data\\{today}\\data_extracted.csv'
     df_data = pd.read_csv(direccion)
     return df_data
 

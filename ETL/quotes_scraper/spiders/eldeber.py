@@ -4,14 +4,16 @@ from scrapy.crawler import CrawlerProcess
 
 import datetime
 # my lybraries
-import ETL.quotes_scraper.spiders.tools.delete_args as td #para que el scraper funciones desde main.py
-#import tools.delete_args as td #para que funcione de forma local
+# para que el scraper funciones desde main.py
+import ETL.quotes_scraper.spiders.tools.delete_args as td
+# import tools.delete_args as td #para que funcione de forma local
 # Xpaths
 XPATH_LINK_TO_ARTICLE = '//div[@class="block"]//a/@href'
 XPATH_TITLE = '//div[@class="text"]/h1/text()'
 XPATH_RESUME = '//div[@class="heading  heading-gallery"]//h2/text()'
 XPATH_BODY_1 = '//b/text()'
 XPATH_BODY_2 = '//article//p/span/text()'
+XPATH_DATE = '//div[@class="bottom"]/h6/span/text()'
 
 today = datetime.date.today().strftime('%d-%m-%y')
 
@@ -22,7 +24,7 @@ class QuotesSpider(scrapy.Spider):
         'https://eldeber.com.bo/'
     ]
     custom_settings = {
-        'FEED_URI': f'data/{today}/data_extracted/newspaper_el_deber.csv',
+        'FEED_URI': f'data/{today}/data_extracted.csv',
         'FEED_FORMAT': 'csv',
         'ENCODING': 'UTF8',
     }
@@ -32,7 +34,7 @@ class QuotesSpider(scrapy.Spider):
         resume = response.xpath(XPATH_RESUME).get()
         body_1 = response.xpath(XPATH_BODY_1).getall()
         body_2 = response.xpath(XPATH_BODY_2).getall()
-        
+
         if resume:
             # modificaciones
             if isinstance(title, str) == True:
@@ -66,7 +68,7 @@ class QuotesSpider(scrapy.Spider):
             }
 
     def parse(self, response):
-        #print('*'*500)
+        # print('*'*500)
         #print(response.status, response.headers)
         links = response.xpath(XPATH_LINK_TO_ARTICLE).getall()
         for link in links:
