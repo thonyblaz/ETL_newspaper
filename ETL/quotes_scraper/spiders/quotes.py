@@ -3,7 +3,9 @@ from scrapy.spiders import SitemapSpider
 from scrapy.crawler import CrawlerProcess
 
 import datetime
-
+# my lybraries
+import ETL.quotes_scraper.spiders.tools.delete_args as td #para que el scraper funciones desde main.py
+#import tools.delete_args as td #para realizar modificaciones en local
 # Xpaths
 XPATH_LINK_TO_ARTICLE = '//div[@id="content"]//a/@href'
 XPATH_TITLE = '//div[1]//div/div[1]/header/h1/text()'
@@ -34,23 +36,15 @@ class QuotesSpider(scrapy.Spider):
         body = response.xpath(XPATH_BODY).getall()
         # modificaciones
         if isinstance(title, str)==True:
-            title = title.replace(',', '')
-            title = title.replace(':', '')
-            title = title.replace(';', '')
-            title = title.replace('"', '')
-            title = title.replace("'", '')
-            title = title.replace("-", '')
-            title = title.replace("\n", '')
-            title = title.replace('\\', '')
-
+            title = td.ReplaceW(title).word_modify()
+        #modificamos el contenido
         paragraph = ""
         for b in body:
-            p = b.replace(',', '')
-            p = p.replace('\'', '')
-            p = p.replace(';', '')
-            p = p.replace(':', '')
-            p = p.replace('"', '**')
-            paragraph = paragraph + p
+            if isinstance(b, str) == True:
+                p = td.ReplaceW(b).word_modify()
+                paragraph = paragraph +" "+ p
+
+
         # traer link del anterior parse
         if kwargs:
             link = kwargs['link']
@@ -61,7 +55,7 @@ class QuotesSpider(scrapy.Spider):
         }
 
     def parse(self, response):
-        print('*'*500)
+        #print('*'*500)
         #print(response.status, response.headers)
         links = response.xpath(XPATH_LINK_TO_ARTICLE).getall()
         for link in links:
