@@ -6,7 +6,7 @@ import datetime
 
 # Xpaths
 XPATH_LINK_TO_ARTICLE = '//div[@id="content"]//a/@href'
-XPATH_TITLE = '//h1[@class="entry-title h1"]/text()'
+XPATH_TITLE = '//div[1]//div/div[1]/header/h1/text()'
 XPATH_BODY = '//div[@class="entry-content herald-entry-content"]/p/text()'
 
 today = datetime.date.today().strftime('%d-%m-%y')
@@ -33,7 +33,15 @@ class QuotesSpider(scrapy.Spider):
         title = response.xpath(XPATH_TITLE).get()
         body = response.xpath(XPATH_BODY).getall()
         # modificaciones
-        #title = title.replace(',', '')
+        if isinstance(title, str)==True:
+            title = title.replace(',', '')
+            title = title.replace(':', '')
+            title = title.replace(';', '')
+            title = title.replace('"', '')
+            title = title.replace("'", '')
+            title = title.replace("-", '')
+            title = title.replace("\n", '')
+            title = title.replace('\\', '')
 
         paragraph = ""
         for b in body:
