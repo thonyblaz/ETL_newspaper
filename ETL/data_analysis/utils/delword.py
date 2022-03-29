@@ -1,8 +1,8 @@
-palabras_comunes = ['de', 'del', 'su', 'se', 'es', 'ese', 'esa','esas','para', 'la', 'el', 'le', 'ha','han', 'a', 'e', 'i', 'o', 'u', 'las',  'les',
-                    'los', 'sus', 'ser', 'y', 'que', 'en', 'un', 'una', 'por', 'al', 'lo', 'hay', 'ahi', 'sin', 'tal', 'vez',
-                    'con', 'si', 'no', 'ni','son','r', 'este', 'esta', 'estos', 'tras', 'como', 'ya', 'toda', 'estan', 'entre', 'ademas', 'además', 'menos',
-                    'también', 'tambien', 'aplica', 'más', 'según', 'está', 'nos', 'me', 'parte', 'partes', 'otros', 'otro', 'ante', 'fue', 
-                    'pero', 'va', 'casos', 'uno','dos','tres','cuarto','quinto','cual','the','hasta','será','']
+palabras_comunes = ['de', 'del', 'su', 'se', 'es', 'ese', 'esa', 'esas', 'para', 'la', 'el', 'le', 'ha', 'han', 'a', 'e', 'i', 'o', 'u', 'las',  'les',
+                    'los', 'él', 'sus', 'ser', 'y', 'que', 'qué', 'en', 'un', 'una', 'por', 'al', 'lo', 'hay', 'ahi', 'sin', 'tal', 'vez',
+                    'con', 'si', 'no', 'ni', 'son', 'r', 'este', 'esta', 'estos', 'tras', 'como', 'cómo', 'ya', 'toda', 'estan', 'entre', 'ademas', 'además', 'menos',
+                    'también', 'tambien', 'aplica', 'más', 'según', 'está', 'nos', 'me', 'mi', 'parte', 'partes', 'otros', 'otro', 'ante', 'fue', 'tiene',
+                    'pero', 'va', 'casos', 'uno', 'dos', 'tres', 'cuarto', 'quinto', 'cual', 'the', 'te', 'tu', 'hasta', 'será', 'porque', '']
 
 
 def delword(p):
@@ -29,4 +29,3 @@ def delword(p):
         else:
             relevant_words.append(word)
     return relevant_words
-

@@ -1,30 +1,31 @@
 import scrapy
 from scrapy.spiders import SitemapSpider
 from scrapy.crawler import CrawlerProcess
-#librerias de python
-import re
+
 import datetime
+import re
 # my lybraries
-import ETL.quotes_scraper.spiders.tools.delete_args as td #para que el scraper funciones desde main.py
-#import tools.delete_args as td #para realizar modificaciones en local
+# para que el scraper funciones desde main.py
+import ETL.quotes_scraper.spiders.tools.delete_args as td
+#import tools.delete_args as td #para que funcione de forma local
 # Xpaths
-XPATH_LINK_TO_ARTICLE = '//div[@id="content"]//a/@href'
-XPATH_TITLE = '//div[1]//div/div[1]/header/h1/text()'
-XPATH_BODY = '//div[@class="entry-content herald-entry-content"]/p/text()'
+XPATH_LINK_TO_ARTICLE = '//div[@class="article-meta "]/a/@href'
+XPATH_TITLE = '//div[@class="article-content"]//h1[@class="title"]/text()'
+XPATH_BODY = '//div[@class="article-content"]//div[@class="article-body"]/p/text()'
+
 
 today = datetime.date.today().strftime('%d-%m-%y')
 
 
 class QuotesSpider(scrapy.Spider):
-    name = 'quotes'
+    name = 'larazon'
     start_urls = [
-        'https://lapatria.bo/',
-        'https://lapatria.bo/oruro/',
-        'https://lapatria.bo/bolivia/'
-        'https://lapatria.bo/politica/'
-        'https://lapatria.bo/estilo-de-vida/',
-        'https://lapatria.bo/internacional/',
-        'https://lapatria.bo/policial/'
+        'https://www.la-razon.com/',
+        'https://www.la-razon.com/nacional/',
+        'https://www.la-razon.com/ciudades/',
+        'https://www.la-razon.com/economia/',
+        'https://www.la-razon.com/mundo/',
+        'https://www.la-razon.com/sociedad/'
     ]
     custom_settings = {
         'FEED_URI': f'data/{today}/data_extracted.csv',
@@ -73,5 +74,4 @@ class QuotesSpider(scrapy.Spider):
     process = CrawlerProcess()
     process.crawl(QuotesSpider)
     process.start()
-
  """

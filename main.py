@@ -15,6 +15,7 @@ import os
 # scrapers
 import ETL.quotes_scraper.spiders.quotes as scraper1
 import ETL.quotes_scraper.spiders.eldeber as scraper2
+import ETL.quotes_scraper.spiders.larazon as scraper3
 # data analist
 import ETL.data_analysis.data_analysis as tr
 
@@ -26,6 +27,7 @@ def extract():
     runner = CrawlerRunner(settings)
     runner.crawl(scraper1.QuotesSpider)
     runner.crawl(scraper2.QuotesSpider)
+    runner.crawl(scraper3.QuotesSpider)
     d = runner.join()
     d.addBoth(lambda _: reactor.stop())
 
