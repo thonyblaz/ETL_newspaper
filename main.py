@@ -53,5 +53,5 @@ def new_folder(today):
 if __name__ == '__main__':
     today = datetime.date.today().strftime('%d-%m-%y')
     new_folder(today)
-    extract()
+    #extract()
     transform(today)

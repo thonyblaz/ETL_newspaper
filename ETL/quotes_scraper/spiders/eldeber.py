@@ -14,7 +14,7 @@ XPATH_TITLE = '//div[@class="text"]/h1/text()'
 XPATH_RESUME = '//div[@class="heading  heading-gallery"]//h2/text()'
 XPATH_BODY_1 = '//b/text()'
 XPATH_BODY_2 = '//article//p/span/text()'
-XPATH_BODY_3 ='//article//p/text()'
+XPATH_BODY_3 = '//article//p/text()'
 XPATH_DATE = '//div[@class="bottom"]/h6/span/text()'
 
 today = datetime.date.today().strftime('%d-%m-%y')
@@ -54,8 +54,14 @@ class QuotesSpider(scrapy.Spider):
             if isinstance(resume, str) == True:
                 paragraph = td.ReplaceW(resume).word_modify()
 
+            body = body_1+body_2#+body_3
+            #body = list(set(body))
             contents_1 = ""
-            for b in body_1:
+            for b in body:
+                if isinstance(b, str) == True:
+                    p = td.ReplaceW(b).word_modify()
+                    contents_1 = contents_1 + " " + p
+            """ for b in body_1:
                 if isinstance(b, str) == True:
                     p = td.ReplaceW(b).word_modify()
                     contents_1 = contents_1 + " " + p
@@ -69,9 +75,9 @@ class QuotesSpider(scrapy.Spider):
             for b in body_3:
                 if isinstance(b, str) == True:
                     p = td.ReplaceW(b).word_modify()
-                    contents_3 = contents_3 + " " + p
+                    contents_3 = contents_3 + " " + p """
 
-            paragraph = paragraph + " "+contents_1+" "+contents_2+" "+contents_3
+            paragraph = paragraph + " "+contents_1  # +" "+contents_2+" "+contents_3
             # traer link del anterior parse
             if kwargs:
                 link = kwargs['link']

@@ -32,17 +32,23 @@ def top_words_c(df_data):
     top_words_1_contents = []
     top_words_2_contents = []
     top_words_3_contents = []
+    #print(words_contents)
     for i in words_contents:
         token_contents.append(len(i))
+        #print(i)
         top_words = tw.top_word(i)[:3]
+        #print(top_words)
+
         top_words_1_contents.append(top_words[0])
         top_words_2_contents.append(top_words[1])
         top_words_3_contents.append(top_words[2])
+
+    #print(top_words_3_contents)
     return token_contents, top_words_1_contents, top_words_2_contents, top_words_3_contents
 
 
 def data_wrangling(df_data):
-    #eliminar la fila con titleque no sean el encabezado
+    #eliminar la fila con title que no sean el encabezado
     df_idx=df_data[df_data["title"]=="title"].index
     df_data=df_data.drop(df_idx)
     #eliminar columna de numeros
@@ -73,7 +79,8 @@ def data_wrangling(df_data):
     token_title = df_data.apply(lambda row: len(
         dlw.delword(row['title'])), axis=1)
     df_data['token title'] = token_title
-
+    #eliminar la fila con filas de token iguales a 1
+    #print(df_data)
     # token o palabras mas relevantes para el contenido y palabras relebantes
     token_contents, top_words_1_contents, top_words_2_contents, top_words_3_contents = top_words_c(
         df_data)
@@ -81,7 +88,9 @@ def data_wrangling(df_data):
     df_data['top 1 words contents'] = top_words_1_contents
     df_data['top 2 words contents'] = top_words_2_contents
     df_data['top 3 words contents'] = top_words_3_contents
-
+    ###
+    df_idx=df_data[df_data["top 1 words contents"]==0].index
+    df_data=df_data.drop(df_idx)
     # devolvemos la data
     return df_data
 
